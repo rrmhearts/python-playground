@@ -1,0 +1,10 @@
+{% extends "base.j2" %}
+{% block content %}
+    <h1>Home 🚀</h1>
+    {% for i in list_of_names %}
+        <ul>
+            <li>{{ i }}</li>
+        </ul>
+    {%endfor%} 
+{% endblock content %}
+
