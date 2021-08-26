@@ -9,9 +9,9 @@
     </form>
 
     <br/>
-    {% for i in list_of_names %}
+    {% for i in todos %}
         <ul>
-            <li>{{ i }}</li>
+            <li>{{ i.content }}</li>
         </ul>
     {%endfor%} 
 {% endblock content %}

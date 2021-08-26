@@ -1,11 +1,22 @@
 from flask import Flask, render_template, request, redirect, url_for
 from forms import Todo
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'password'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tmp/test.db'
+db = SQLAlchemy(app)
+
+class TodoModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(80), nullable=False)
+
+    def __repr__(self):
+        return '<Todo %r>' % self.content
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    todos = TodoModel.query.all()
     if request.method == 'POST':
         data = request.form
         firstname = data['firstname']
@@ -15,7 +26,7 @@ def index():
 
     return render_template('home.j2', \
         request_method=request.method, \
-        list_of_names=['Elon', 'Jeff', 'Ash'])
+        todos=todos)
 
 @app.route('/name/<string:firstname>')
 def name(firstname):
@@ -25,7 +36,9 @@ def name(firstname):
 def todo():
     todo_form = Todo()
     if todo_form.validate_on_submit():
-        print(todo_form.content.data)
+        todo = TodoModel(content=todo_form.content.data)
+        db.session.add(todo)
+        db.session.commit()
         return redirect('/')
 
     return render_template('todo.j2', form=todo_form)
