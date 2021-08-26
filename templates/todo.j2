@@ -1,0 +1,8 @@
+{% block content %}
+    <h1>Form Page</h1>
+    <form action="/todo" method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.content }}
+        {{ form.submit }}
+    </form>
+{% endblock content %}

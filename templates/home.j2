@@ -1,6 +1,14 @@
 {% extends "base.j2" %}
 {% block content %}
     <h1>Home 🚀</h1>
+    <span>Request Method - {{request_method}}</span>
+    <form method="post" action="/">
+        <input type="text" name="firstname" placeholder="firstname">
+        <input type="text" name="lastname" placeholder="lastname">
+        <input type="submit">
+    </form>
+
+    <br/>
     {% for i in list_of_names %}
         <ul>
             <li>{{ i }}</li>
