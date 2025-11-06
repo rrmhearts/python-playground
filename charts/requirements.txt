@@ -1,0 +1,8 @@
+alpaca-trade-api==3.0.2
+pandas==2.0.3
+numpy==1.24.3
+yfinance==0.2.18
+TA-Lib==0.4.26
+scipy==1.11.1
+python-dateutil==2.8.2
+requests==2.31.0
